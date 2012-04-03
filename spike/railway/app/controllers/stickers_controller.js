@@ -1,5 +1,9 @@
 load('application');
 
+Sticker.validatesPresenceOf('title', 'content');
+Sticker.validatesLengthOf('title', {min:3, max: 20, message: {max: 'title is too long', min: 'title is too short'}});
+Sticker.validatesLengthOf('content', {min: 10, max: 200, message: {max: 'content is too long', min: 'content is too short'}});
+
 before(loadSticker, {only: ['show', 'edit', 'update', 'destroy']});
 
 action('new', function () {
@@ -9,6 +13,7 @@ action('new', function () {
 });
 
 action(function create() {
+	
     Sticker.create(req.body.Sticker, function (err, sticker) {
         if (err) {
             flash('error', 'Sticker can not be created');
