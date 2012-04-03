@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        [draggable] {
+            -moz-user-select: none;
+            -khtml-user-select: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .column {
+            height: 150px;
+            width: 150px;
+            float: left;
+            border: 2px solid #666666;
+            background-color: #ccc;
+            margin-right: 5px;
+            -webkit-border-radius: 10px;
+            -ms-border-radius: 10px;
+            -moz-border-radius: 10px;
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 3px #000;
+            -ms-box-shadow: inset 0 0 3px #000;
+            box-shadow: inset 0 0 3px #000;
+            text-align: center;
+            cursor: move;
+        }
+
+        .column.over {
+            /*border: 2px dashed #000;*/
+        }
+
+        .column header {
+            color: #fff;
+            text-shadow: #000 0 1px;
+            box-shadow: 5px;
+            padding: 5px;
+            background: -moz-linear-gradient(left center, rgb(0, 0, 0), rgb(79, 79, 79), rgb(21, 21, 21));
+            background: -webkit-gradient(linear, left top, right top, color-stop(0, rgb(0, 0, 0)), color-stop(0.50, rgb(79, 79, 79)), color-stop(1, rgb(21, 21, 21)));
+            background: -webkit-linear-gradient(left center, rgb(0, 0, 0), rgb(79, 79, 79), rgb(21, 21, 21));
+            background: -ms-linear-gradient(left center, rgb(0, 0, 0), rgb(79, 79, 79), rgb(21, 21, 21));
+            border-bottom: 1px solid #ddd;
+            -webkit-border-top-left-radius: 10px;
+            -moz-border-radius-topleft: 10px;
+            -ms-border-radius-topleft: 10px;
+            border-top-left-radius: 10px;
+            -webkit-border-top-right-radius: 10px;
+            -ms-border-top-right-radius: 10px;
+            -moz-border-radius-topright: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .column details {
+            color: #fff;
+            text-shadow: #000 0 1px;
+            box-shadow: 5px;
+            padding: 5px;
+            background: -moz-linear-gradient(left center, rgb(0, 0, 0), rgb(79, 79, 79), rgb(21, 21, 21));
+            background: -webkit-gradient(linear, left top, right top, color-stop(0, rgb(0, 0, 0)), color-stop(0.50, rgb(79, 79, 79)), color-stop(1, rgb(21, 21, 21)));
+            background: -webkit-linear-gradient(left center, rgb(0, 0, 0), rgb(79, 79, 79), rgb(21, 21, 21));
+            background: -ms-linear-gradient(left center, rgb(0, 0, 0), rgb(79, 79, 79), rgb(21, 21, 21));
+            border-bottom: 1px solid #ddd;
+            -webkit-border-top-left-radius: 10px;
+            -moz-border-radius-topleft: 10px;
+            -ms-border-radius-topleft: 10px;
+            border-top-left-radius: 10px;
+            -webkit-border-top-right-radius: 10px;
+            -ms-border-top-right-radius: 10px;
+            -moz-border-radius-topright: 10px;
+            border-top-right-radius: 10px;
+        }
+    </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        (function ($) {
+        	"use strict";
+
+        	//hooks for drag and drop events, like $.event.keyHooks and $.event.mouseHooks, but for drag and drop
+        	var dndHooks = {
+        		//importing to the event object all the properties like in a regular mouse event,
+        		//also importing the dataTransfer property
+        		props: $.event.mouseHooks.props.concat('dataTransfer'),
+
+        		//since no new filtering to the imported props is needed, we only need the same filtering as in normal
+        		//mouse events
+        		filter: $.event.mouseHooks.filter
+        	};
+
+        	//make the drag and drop events like every other event, this is almost the same as the end of /src/event.js
+        	$.each(['dragstart', 'dragenter', 'dragover', 'dragleave', 'drag', 'drop', 'dragend'], function (i, name) {
+        		$.fn[name] = function (data, fn) {
+        			if (!fn) {
+        				fn = data;
+        				data = null;
+        			}
+        			return arguments.length > 0 ? this.on(name, null, data, fn) : this.trigger(name);
+        		};
+
+        		if ($.attrFn) {
+        			$.attrFn[name] = true;
+        		}
+
+        		$.event.fixHooks[name] = dndHooks;
+        	});
+
+        }(jQuery));
+
+        $(document).ready(function () {
+            var dragSrcEl = null;
+            $('.column').dragstart(function (e) {
+//                $(this).css('opacity', '0.4');
+                dragSrcEl = this;
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('text/html', this.innerHTML);
+            });
+            $('.column').dragenter(function () {
+                $(this).addClass('over');
+            });
+            $('.column').dragleave(function () {
+                $(this).removeClass('over');
+            });
+            $('.column').dragover(function (e) {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+            });
+            $('.column').drop(function (e) {
+                e.stopPropagation();
+                if(dragSrcEl != this) {
+                    dragSrcEl.innerHTML = this.innerHTML;
+                    this.innerHTML = e.dataTransfer.getData('text/html');
+                }
+            });
+            $('.column').dragend(function (e) {
+                $(this).removeClass('over');
+            });
+        });
+    </script>
+    <title>Drag and drop</title>
+</head>
+<body>
+<div id="columns">
+    <div class="column" draggable="true">
+        <header>#123</header>
+        <details>task list of story #123</details>
+    </div>
+    <div class="column" draggable="true">
+        <header>#456</header>
+        <details>task list of story #456</details>
+    </div>
+    <div class="column" draggable="true">
+        <header>#789</header>
+        <details>task list of story #789</details>
+    </div>
+</div>
+</body>
+</html>
