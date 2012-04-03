@@ -1,0 +1,9 @@
+<div class="page-header"><h1>Edit sticker</h1></div>
+
+<% form_for(sticker, {action: path_to.sticker(sticker), method: 'PUT', id: "sticker_form", class: 'form-horizontal'}, function (form) { %>
+    <%- partial('stickers/form.ejs', {locals: {form: form, sticker: sticker}}) %>
+    <div class="form-actions">
+        <%- form.submit('<i class="icon-ok icon-white"></i> Update sticker', {class: 'btn btn-primary'}) %> or
+        <%- link_to('Cancel', path_to.sticker(sticker), {class: 'btn'}) %>
+    </div>
+<% });%>
