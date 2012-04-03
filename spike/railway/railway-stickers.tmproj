@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>db/schema.js</string>
+	<string>app/controllers/stickers_controller.js</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -26,14 +26,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>3</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>23</integer>
+				<integer>5</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>1</integer>
+			<integer>0</integer>
 		</dict>
 		<key>app/models/sticker.js</key>
 		<dict>
@@ -54,51 +54,9 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>30</integer>
+				<integer>3</integer>
 				<key>line</key>
-				<integer>12</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>node_modules/jugglingdb/lib/abstract-class.js</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>27</integer>
-				<key>line</key>
-				<integer>151</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>155</integer>
-		</dict>
-		<key>node_modules/jugglingdb/lib/validatable.js</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>49</integer>
-				<key>line</key>
-				<integer>492</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>476</integer>
-		</dict>
-		<key>node_modules/railway/lib/extensions.js</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>34</integer>
-				<key>line</key>
-				<integer>7</integer>
+				<integer>9</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -110,10 +68,7 @@
 	<array>
 		<string>db/schema.js</string>
 		<string>app/models/sticker.js</string>
-		<string>node_modules/jugglingdb/lib/validatable.js</string>
 		<string>app/controllers/stickers_controller.js</string>
-		<string>node_modules/jugglingdb/lib/abstract-class.js</string>
-		<string>node_modules/railway/lib/extensions.js</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
